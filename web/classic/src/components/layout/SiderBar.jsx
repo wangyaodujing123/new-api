@@ -49,6 +49,8 @@ const routerMap = {
   deployment: '/console/deployment',
   playground: '/console/playground',
   personal: '/console/personal',
+  kpi: '/console/kpi',
+  'kpi-admin': '/console/kpi/admin',
 };
 
 const SiderBar = ({ onNavigate = () => {} }) => {
@@ -104,6 +106,11 @@ const SiderBar = ({ onNavigate = () => {} }) => {
         to: '/task',
         className:
           localStorage.getItem('enable_task') === 'true' ? '' : 'tableHiddle',
+      },
+      {
+        text: t('KPI 考核'),
+        itemKey: 'kpi',
+        to: '/console/kpi',
       },
     ];
 
@@ -188,6 +195,12 @@ const SiderBar = ({ onNavigate = () => {} }) => {
         itemKey: 'setting',
         to: '/setting',
         className: isRoot() ? '' : 'tableHiddle',
+      },
+      {
+        text: t('KPI 管理'),
+        itemKey: 'kpi-admin',
+        to: '/console/kpi/admin',
+        className: isAdmin() ? '' : 'tableHiddle',
       },
     ];
 

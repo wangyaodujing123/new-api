@@ -48,6 +48,11 @@ import Subscription from './pages/Subscription';
 import OAuth2Callback from './components/auth/OAuth2Callback';
 import PersonalSetting from './components/settings/PersonalSetting';
 import Setup from './pages/Setup';
+import KPI from './pages/KPI';
+import KPITaskDetail from './pages/KPI/KPITaskDetail';
+import KPIAdmin from './pages/KPI/KPIAdmin';
+
+const KPIAdminTaskStats = lazy(() => import('./pages/KPI/KPIAdminTaskStats'));
 import SetupCheck from './components/layout/SetupCheck';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -313,6 +318,46 @@ function App() {
                 <Task />
               </Suspense>
             </PrivateRoute>
+          }
+        />
+        <Route
+          path='/console/kpi'
+          element={
+            <PrivateRoute>
+              <Suspense fallback={<Loading></Loading>} key={location.pathname}>
+                <KPI />
+              </Suspense>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/console/kpi/task/:id'
+          element={
+            <PrivateRoute>
+              <Suspense fallback={<Loading></Loading>} key={location.pathname}>
+                <KPITaskDetail />
+              </Suspense>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/console/kpi/admin'
+          element={
+            <AdminRoute>
+              <Suspense fallback={<Loading></Loading>} key={location.pathname}>
+                <KPIAdmin />
+              </Suspense>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path='/console/kpi/admin/task/:id'
+          element={
+            <AdminRoute>
+              <Suspense fallback={<Loading></Loading>} key={location.pathname}>
+                <KPIAdminTaskStats />
+              </Suspense>
+            </AdminRoute>
           }
         />
         <Route
