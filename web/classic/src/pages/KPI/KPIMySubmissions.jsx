@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Tag, Image, Empty, Spin } from '@douyinfe/semi-ui';
+import { Table, Tag, Empty, Spin, Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 import { useTranslation } from 'react-i18next';
 import { API, showError } from '../../helpers';
 
-const statusMap = { 0: { text: '待审核', color: 'yellow' }, 1: { text: '已通过', color: 'green' }, 2: { text: '已驳回', color: 'red' } };
+const statusMap = {
+  0: { text: '待审核', color: 'amber' },
+  1: { text: '已通过', color: 'green' },
+  2: { text: '已驳回', color: 'red' },
+};
 
 const KPIMySubmissions = () => {
   const { t } = useTranslation();
@@ -34,44 +38,59 @@ const KPIMySubmissions = () => {
   }, [page]);
 
   const columns = [
-    { title: '日期', dataIndex: 'submission_date', width: 110 },
+    {
+      title: '提交日期',
+      dataIndex: 'submission_date',
+      width: 120,
+      render: (text) => <Tag>{text}</Tag>,
+    },
     {
       title: '截图',
       dataIndex: 'screenshot_urls',
-      width: 120,
+      width: 140,
       render: (text) => {
         try {
           const urls = JSON.parse(text || '[]');
+          if (urls.length === 0) return '-';
           return (
-            <Image.PreviewGroup>
+            <AvatarGroup size='small' maxCount={3}>
               {urls.map((url, i) => (
-                <Image key={i} src={`/api/kpi/uploads/${url}`} width={40} height={40} style={{ objectFit: 'cover', borderRadius: 4, marginRight: 4 }} />
+                <Avatar key={i} src={`/api/kpi/uploads/${url}`} shape='square' />
               ))}
-            </Image.PreviewGroup>
+            </AvatarGroup>
           );
         } catch { return '-'; }
       },
     },
-    { title: '说明', dataIndex: 'description', ellipsis: true },
+    {
+      title: '使用说明',
+      dataIndex: 'description',
+      ellipsis: { showTooltip: true },
+    },
     {
       title: '状态',
       dataIndex: 'status',
       width: 100,
       render: (status) => {
         const s = statusMap[status] || { text: '未知', color: 'grey' };
-        return <Tag color={s.color}>{s.text}</Tag>;
+        return <Tag color={s.color} shape='circle'>{s.text}</Tag>;
       },
     },
     {
       title: '评分',
       dataIndex: 'score',
       width: 80,
-      render: (score) => score != null ? score : '-',
+      render: (score) => score != null ? (
+        <Tag color='blue' shape='circle'>{score} 分</Tag>
+      ) : (
+        <Text type='tertiary'>-</Text>
+      ),
     },
     {
-      title: '驳回原因',
+      title: '审核意见',
       dataIndex: 'review_comment',
-      width: 150,
+      width: 180,
+      ellipsis: { showTooltip: true },
       render: (text) => text || '-',
     },
   ];
@@ -87,10 +106,16 @@ const KPIMySubmissions = () => {
         pageSize: 10,
         total,
         onPageChange: setPage,
+        showTotal: true,
+        showSizeChanger: false,
       }}
-      empty={<Empty description={t('暂无提交记录')} />}
+      empty={<Empty title={t('暂无提交记录')} description={t('点击考核任务进行每日提交')} />}
+      style={{ borderRadius: 8 }}
     />
   );
 };
+
+// 用于 columns 中的 Text 组件
+const { Text } = require('@douyinfe/semi-ui').Typography;
 
 export default KPIMySubmissions;

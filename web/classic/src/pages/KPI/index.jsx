@@ -8,16 +8,20 @@ const KPI = () => {
   const { t } = useTranslation();
 
   return (
-    <>
-      <Tabs>
+    <div className='mt-[60px] px-2'>
+      <Tabs type='line' size='large'>
         <TabPane tab={t('考核任务')} itemKey='tasks'>
-          <KPITaskList />
+          <div style={{ paddingTop: 16 }}>
+            <KPITaskList />
+          </div>
         </TabPane>
         <TabPane tab={t('我的提交')} itemKey='submissions'>
-          <KPIMySubmissions />
+          <div style={{ paddingTop: 16 }}>
+            <KPIMySubmissions />
+          </div>
         </TabPane>
       </Tabs>
-    </>
+    </div>
   );
 };
 
