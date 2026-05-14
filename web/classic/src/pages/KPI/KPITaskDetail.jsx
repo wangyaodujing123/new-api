@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Typography, Tag, Button, TextArea, Upload, Toast, Spin, Empty, Image, Table } from '@douyinfe/semi-ui';
-import { IconUpload } from '@douyinfe/semi-icons';
+import { Card, Typography, Tag, Button, TextArea, Upload, Spin, Empty, Image, Table } from '@douyinfe/semi-ui';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { API, showError, showSuccess } from '../../helpers';
