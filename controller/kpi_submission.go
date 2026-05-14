@@ -196,9 +196,11 @@ func GetMyKPISubmissions(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
-		"data":    submissions,
-		"total":   total,
-		"page":    page,
+		"data": gin.H{
+			"list":  submissions,
+			"total": total,
+			"page":  page,
+		},
 	})
 }
 
@@ -220,9 +222,11 @@ func GetAllKPISubmissions(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
-		"data":    submissions,
-		"total":   total,
-		"page":    page,
+		"data": gin.H{
+			"list":  submissions,
+			"total": total,
+			"page":  page,
+		},
 	})
 }
 

@@ -86,9 +86,11 @@ func GetKPITasks(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
-		"data":    tasks,
-		"total":   total,
-		"page":    page,
+		"data": gin.H{
+			"list":  tasks,
+			"total": total,
+			"page":  page,
+		},
 	})
 }
 
@@ -105,9 +107,11 @@ func GetActiveKPITasks(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
-		"data":    tasks,
-		"total":   total,
-		"page":    page,
+		"data": gin.H{
+			"list":  tasks,
+			"total": total,
+			"page":  page,
+		},
 	})
 }
 
@@ -263,8 +267,10 @@ func GetKPITaskRanking(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
-		"data":    entries,
-		"total":   total,
-		"page":    page,
+		"data": gin.H{
+			"list":  entries,
+			"total": total,
+			"page":  page,
+		},
 	})
 }

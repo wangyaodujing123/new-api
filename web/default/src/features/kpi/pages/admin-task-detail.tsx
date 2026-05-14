@@ -44,24 +44,24 @@ export function KPIAdminTaskDetail() {
       {stats && (
         <div className="mb-6 grid grid-cols-4 gap-4">
           <div className="rounded-lg border p-4 text-center">
-            <p className="text-2xl font-bold">{stats.summary?.total_count ?? 0}</p>
+            <p className="text-2xl font-bold">{stats.total_count ?? 0}</p>
             <p className="text-xs text-muted-foreground">总提交</p>
           </div>
           <div className="rounded-lg border p-4 text-center">
             <p className="text-2xl font-bold text-green-600">
-              {stats.summary?.approved_count ?? 0}
+              {stats.approved_count ?? 0}
             </p>
             <p className="text-xs text-muted-foreground">已通过</p>
           </div>
           <div className="rounded-lg border p-4 text-center">
             <p className="text-2xl font-bold text-red-600">
-              {stats.summary?.rejected_count ?? 0}
+              {stats.rejected_count ?? 0}
             </p>
             <p className="text-xs text-muted-foreground">已驳回</p>
           </div>
           <div className="rounded-lg border p-4 text-center">
             <p className="text-2xl font-bold text-yellow-600">
-              {stats.summary?.pending_count ?? 0}
+              {stats.pending_count ?? 0}
             </p>
             <p className="text-xs text-muted-foreground">待审核</p>
           </div>
