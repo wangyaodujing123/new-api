@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Tag, Empty, Spin, Avatar, AvatarGroup } from '@douyinfe/semi-ui';
+import { Table, Tag, Empty, Avatar, AvatarGroup, Typography } from '@douyinfe/semi-ui';
 import { useTranslation } from 'react-i18next';
 import { API, showError } from '../../helpers';
+
+const { Text } = Typography;
 
 const statusMap = {
   0: { text: '待审核', color: 'amber' },
@@ -114,8 +116,5 @@ const KPIMySubmissions = () => {
     />
   );
 };
-
-// 用于 columns 中的 Text 组件
-const { Text } = require('@douyinfe/semi-ui').Typography;
 
 export default KPIMySubmissions;
