@@ -362,6 +362,37 @@ func SetApiRouter(router *gin.Engine) {
 			modelsRoute.DELETE("/:id", controller.DeleteModelMeta)
 		}
 
+		// KPI 考核任务管理
+		kpiRoute := apiRouter.Group("/kpi")
+		{
+			// 用户路由
+			kpiUserRoute := kpiRoute.Group("")
+			kpiUserRoute.Use(middleware.UserAuth())
+			{
+				kpiUserRoute.GET("/task/active", controller.GetActiveKPITasks)
+				kpiUserRoute.GET("/task/:id", controller.GetKPITask)
+				kpiUserRoute.POST("/submission", controller.CreateKPISubmission)
+				kpiUserRoute.GET("/submission/self", controller.GetMyKPISubmissions)
+				kpiUserRoute.GET("/uploads/*filepath", controller.ServeKPIUpload)
+			}
+
+			// 管理员路由
+			kpiAdminRoute := kpiRoute.Group("")
+			kpiAdminRoute.Use(middleware.AdminAuth())
+			{
+				kpiAdminRoute.POST("/task", controller.CreateKPITask)
+				kpiAdminRoute.GET("/task", controller.GetKPITasks)
+				kpiAdminRoute.PUT("/task/:id", controller.UpdateKPITask)
+				kpiAdminRoute.PUT("/task/:id/status", controller.UpdateKPITaskStatus)
+				kpiAdminRoute.DELETE("/task/:id", controller.DeleteKPITask)
+				kpiAdminRoute.GET("/submission", controller.GetAllKPISubmissions)
+				kpiAdminRoute.POST("/submission/:id/review", controller.ReviewKPISubmission)
+				kpiAdminRoute.PUT("/submission/:id/score", controller.UpdateKPISubmissionScore)
+				kpiAdminRoute.GET("/task/:id/stats", controller.GetKPITaskStats)
+				kpiAdminRoute.GET("/task/:id/ranking", controller.GetKPITaskRanking)
+			}
+		}
+
 		// Deployments (model deployment management)
 		deploymentsRoute := apiRouter.Group("/deployments")
 		deploymentsRoute.Use(middleware.AdminAuth())

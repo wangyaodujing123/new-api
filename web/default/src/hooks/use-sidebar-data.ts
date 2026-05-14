@@ -33,6 +33,8 @@ import {
   CreditCard,
   ListTodo,
   Settings,
+  ClipboardCheck,
+  Target,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { WORKSPACE_IDS } from '@/components/layout/lib/workspace-registry'
@@ -98,6 +100,13 @@ export function useSidebarData(): SidebarData {
             configUrls: ['/usage-logs/drawing', '/usage-logs/task'],
             icon: ListTodo,
           },
+          {
+            title: t('KPI 考核'),
+            url: '/kpi/tasks',
+            activeUrls: ['/kpi/tasks', '/kpi/submissions'],
+            configUrls: ['/kpi', '/kpi/tasks', '/kpi/submissions'],
+            icon: ClipboardCheck,
+          },
         ],
       },
       {
@@ -144,6 +153,13 @@ export function useSidebarData(): SidebarData {
             title: t('Subscription Management'),
             url: '/subscriptions',
             icon: CreditCard,
+          },
+          {
+            title: t('KPI 管理'),
+            url: '/kpi/admin/tasks',
+            activeUrls: ['/kpi/admin'],
+            configUrls: ['/kpi/admin', '/kpi/admin/tasks', '/kpi/admin/submissions'],
+            icon: Target,
           },
           {
             title: t('System Settings'),
